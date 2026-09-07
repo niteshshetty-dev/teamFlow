@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { login } from "../store/authSlice";
+import api from "../services/api";
 
 function Login() {
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    api
+      .get("/")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("API error:", error);
+      });
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,6 +35,8 @@ function Login() {
         token: "demo-token",
       }),
     );
+
+    navigate("/dashboard");
   };
 
   return (
