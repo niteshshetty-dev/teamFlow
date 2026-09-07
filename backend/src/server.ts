@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import healthRoutes from "./routes/healthRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ const PORT = 5000;
 app.use("/", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/projects", projectRoutes);
 
 await connectDB();
 
