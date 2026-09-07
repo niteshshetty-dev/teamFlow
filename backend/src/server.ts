@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import healthRoutes from "./routes/healthRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -12,6 +14,8 @@ app.use(cors());
 const PORT = 5000;
 
 app.use("/", healthRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 await connectDB();
 
