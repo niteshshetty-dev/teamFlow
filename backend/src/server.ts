@@ -11,9 +11,9 @@ import taskRoutes from "./routes/taskRoutes.js";
 dotenv.config();
 
 const app = express();
+
 app.use(express.json());
 app.use(cors());
-const PORT = 5000;
 
 app.use("/", healthRoutes);
 app.use("/api/auth", authRoutes);
@@ -21,8 +21,10 @@ app.use("/api/users", userRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/tasks", taskRoutes);
 
+const PORT = Number(process.env.PORT) || 5000;
+
 await connectDB();
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
