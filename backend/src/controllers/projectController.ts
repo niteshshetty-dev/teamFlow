@@ -109,7 +109,7 @@ export const updateProject = async (
         description,
       },
       {
-        new: true,
+        returnDocument: "after",
         runValidators: true,
       },
     );
