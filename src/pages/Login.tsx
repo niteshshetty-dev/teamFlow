@@ -22,21 +22,28 @@ function Login() {
       });
   }, []);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    dispatch(
-      login({
-        user: {
-          id: "1",
-          name: "Nithesh",
-          email,
-        },
-        token: "demo-token",
-      }),
-    );
+    try {
+      const response = await api.post("/api/auth/login", {
+        email,
+        password,
+      });
 
-    navigate("/dashboard");
+      const { token, user } = response.data;
+
+      dispatch(
+        login({
+          user,
+          token,
+        }),
+      );
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (
